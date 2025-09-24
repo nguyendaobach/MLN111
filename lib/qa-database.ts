@@ -31,21 +31,8 @@ let questionsDB: any[] = [
   }
 ];
 
-// Simulate real-time subscribers (trong thực tế sẽ dùng WebSocket)
-let subscribers: ((data: any) => void)[] = [];
-
-export function addSubscriber(callback: (data: any) => void) {
-  subscribers.push(callback);
-  return () => {
-    subscribers = subscribers.filter(sub => sub !== callback);
-  };
-}
-
-export function notifySubscribers(type: string, data: any) {
-  subscribers.forEach(callback => {
-    callback({ type, data });
-  });
-}
+// Simple in-memory storage without complex subscribers for Vercel compatibility
+let lastUpdateTime = Date.now();
 
 export function getAllQuestions() {
   return questionsDB.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
@@ -61,9 +48,7 @@ export function addQuestion(question: any) {
   };
   
   questionsDB.unshift(newQuestion);
-  
-  // Thông báo cho tất cả clients
-  notifySubscribers('QUESTION_ADDED', newQuestion);
+  lastUpdateTime = Date.now();
   
   return newQuestion;
 }
@@ -72,11 +57,13 @@ export function likeQuestion(questionId: string) {
   const question = questionsDB.find(q => q.id === questionId);
   if (question) {
     question.likes += 1;
-    
-    // Thông báo cho tất cả clients
-    notifySubscribers('QUESTION_LIKED', { questionId, likes: question.likes });
+    lastUpdateTime = Date.now();
     
     return question;
   }
   return null;
+}
+
+export function getLastUpdateTime() {
+  return lastUpdateTime;
 }

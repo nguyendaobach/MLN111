@@ -22,10 +22,34 @@ pnpm dev
 - ✅ API key không còn hardcode trong source code
 - ✅ Chỉ có `NEXT_PUBLIC_*` variables mới accessible từ client-side
 
-## Bước 3: Production
-Khi deploy production, set environment variable:
+## Bước 3: Deploy lên Vercel
+
+### Cách 1: Qua Vercel Dashboard (Khuyến nghị)
+1. Vào [vercel.com](https://vercel.com) → Your Project → Settings → Environment Variables
+2. Thêm biến môi trường:
+   - **Name**: `NEXT_PUBLIC_GOOGLE_API_KEY`
+   - **Value**: `your-actual-api-key-here`
+   - **Environment**: Production (hoặc tất cả)
+3. Redeploy project
+
+### Cách 2: Qua Vercel CLI
 ```bash
-NEXT_PUBLIC_GOOGLE_API_KEY=your-production-api-key
+vercel env add NEXT_PUBLIC_GOOGLE_API_KEY
+# Nhập value khi được hỏi
+# Chọn environment: Production
+
+# Redeploy
+vercel --prod
+```
+
+### Cách 3: Trong vercel.json
+Tạo file `vercel.json` (không khuyến nghị cho sensitive data):
+```json
+{
+  "env": {
+    "NEXT_PUBLIC_GOOGLE_API_KEY": "your-api-key"
+  }
+}
 ```
 
 ## Files đã được cập nhật:

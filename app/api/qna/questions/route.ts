@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllQuestions, addQuestion, likeQuestion } from '@/lib/qa-database';
 
+// Disable static generation for this API route
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const questions = getAllQuestions();
