@@ -489,77 +489,63 @@ export default function MarxistTheoryScroll() {
       <section className="horizontal-parallax-section">
         <div className="horizontal-scroll-wrapper">
           <div className="parallax-img-wrapper parallax-slower">
-            <a href="#" rel="noopener">
               <img src="/ancient-communist-society-primitive-tools.jpg" alt="Cộng sản nguyên thủy" />
-            </a>
+
           </div>
 
           <div className="parallax-img-wrapper parallax-faster">
-            <a href="#" rel="noopener">
+
               <img src="/ancient-slavery-roman-empire-chains.jpg" alt="Chế độ chiếm hữu nô lệ" />
-            </a>
+
           </div>
 
           <div className="parallax-img-wrapper parallax-slower parallax-vertical">
-            <a href="#" rel="noopener">
+
               <img src="/medieval-feudal-castle- peasants-working-fields.jpg" alt="Chế độ phong kiến" />
-            </a>
+
           </div>
 
           <div className="parallax-img-wrapper parallax-slower parallax-slower-down">
-            <a href="#" rel="noopener">
+
               <img src="/industrial-revolution-factory-workers-steam-engine.jpg" alt="Chủ nghĩa tư bản" />
-            </a>
+
           </div>
 
           <div className="parallax-img-wrapper">
-            <a href="#" rel="noopener">
+
               <img src="/russian-revolution-1917-red-flags-workers.jpg" alt="Cách mạng Nga 1917" />
-            </a>
+
           </div>
 
           <div className="parallax-img-wrapper parallax-slower">
-            <a href="#" rel="noopener">
+
               <img src="/vietnam-war-independence-ho-chi-minh.jpg" alt="Cách mạng Việt Nam" />
-            </a>
+
           </div>
 
           <div className="parallax-img-wrapper parallax-faster1">
-            <a href="#" rel="noopener">
               <img src="/modern-china-socialist-construction-buildings.jpg" alt="Xây dựng CNXH Trung Quốc" />
-            </a>
+            
           </div>
 
-          <div className="parallax-img-wrapper parallax-slower parallax-slower2">
-            <a href="#" rel="noopener">
-              <img src="/digital-economy-ai-robots-future-society.jpg" alt="Kinh tế số và AI" />
-            </a>
-          </div>
-
-          <div className="parallax-img-wrapper">
-            <a href="#" rel="noopener">
+                    <div className="parallax-img-wrapper">
               <img src="/global-climate-change-environmental-movement.jpg" alt="Biến đổi khí hậu toàn cầu" />
-            </a>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower">
-            <a href="#" rel="noopener">
               <img src="/future-communist-society-equality-technology.jpg" alt="Xã hội cộng sản tương lai" />
-            </a>
           </div>
 
-          <div className="parallax-img-wrapper parallax-slower parallax-last">
-            <a href="#" rel="noopener">
-              <img src="/world-peace-unity-diverse-people-holding-hands.jpg" alt="Hòa bình thế giới" />
-            </a>
+           <div className="parallax-img-wrapper parallax-slower parallax-slower2">
+              <img src="/digital-economy-ai-robots-future-society.jpg" alt="Kinh tế số và AI" />
           </div>
+
         </div>
 
         <div className="parallax-scroll-info">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
             <path d="M50,67.1c-0.6,0-1.2-0.2-1.8-0.7c-3.8-3.8-7.7-7.7-11.5-11.5c-2.3-2.3,1.2-5.8,3.5-3.5c2.5,2.5,4.9,4.9,7.4,7.4      c0-13.7,0-27.4,0-41.2c0-0.6,0.2-1.2,0.5-1.5c0,0,0,0,0,0c0.4-0.6,1.1-1,2-0.9c13.7,0.3,26.4,7.2,33.5,19.1      C96.5,55.9,84.7,85,60.2,91.6C35.5,98.2,11.6,79.1,11.1,54c-0.1-3.2,4.9-3.2,5,0c0.3,13.8,8.4,26.4,21.3,31.5      c12.5,5,27.1,1.9,36.6-7.5c9.5-9.5,12.5-24.1,7.5-36.6c-4.8-12.1-16.3-20.1-29-21.2c0,12.8,0,25.5,0,38.3      c2.5-2.5,4.9-4.9,7.4-7.4c2.3-2.3,5.8,1.3,3.5,3.5c-3.9,3.9-7.8,7.8-11.8,11.8C51.2,66.9,50.6,67.1,50,67.1z" />
           </svg>
-          <span>Cuộn để khám phá lịch sử</span>
         </div>
 
         <div className="parallax-header">
@@ -635,9 +621,7 @@ export default function MarxistTheoryScroll() {
         <div className="container mx-auto px-6">
           <div className="section-fade-in text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-8">Marx Quest - Flashcard Quiz</h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Điểm hiện tại: <span className="text-primary font-bold">{quizScore} XP</span>
-            </p>
+
 
             <div className="max-w-3xl mx-auto">
               <div className="quiz-card h-80 mb-8 cursor-pointer" onClick={flipQuizCard}>
@@ -645,11 +629,10 @@ export default function MarxistTheoryScroll() {
                   <div className="flip-card-front">
                     <h3 className="text-xl font-semibold text-balance mb-4">{quizCards[currentQuiz].question}</h3>
                     <p className="text-sm text-muted-foreground">Nhấp để xem đáp án</p>
-                    <p className="text-xs text-accent mt-4">+{quizCards[currentQuiz].points} XP</p>
                   </div>
                   <div className="flip-card-back">
                     <p className="text-lg text-balance mb-4">{quizCards[currentQuiz].answer}</p>
-                    <p className="text-sm text-primary-foreground/80">+{quizCards[currentQuiz].points} XP đã cộng!</p>
+                    
                   </div>
                 </div>
               </div>
@@ -704,7 +687,7 @@ export default function MarxistTheoryScroll() {
                 </Button>
               </div>
 
-              {quizScore >= 100 && (
+              {quizScore >= 200 && (
                 <Card className="bg-gradient-to-r from-primary/20 to-accent/20 border-primary/30">
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-primary mb-2">🏆 Huy hiệu "Nhà Biện Chứng Trẻ"</h3>
