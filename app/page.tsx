@@ -192,20 +192,14 @@ export default function MarxistTheoryScroll() {
               Xã hội không bao giờ đứng yên
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-4xl mx-auto text-balance">
-              Hiểu để lý giải, học để tranh biện
-            </p>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto text-balance">
               Học thuyết hình thái kinh tế – xã hội của chủ nghĩa Mác – Lênin
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                onClick={() => scrollToSection(1)}
+                onClick={() => scrollToSection(1)}  
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg"
               >
-                Khám phá học thuyết <ChevronDown className="ml-2 h-5 w-5" />
-              </Button>
-              <Button onClick={() => scrollToSection(8)} variant="outline" className="px-8 py-3 text-lg">
-                Lý giải vì sao xã hội không đứng yên
+                Khám phá học thuyết
               </Button>
             </div>
           </div>
@@ -218,7 +212,7 @@ export default function MarxistTheoryScroll() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="section-fade-in max-w-5xl mx-auto text-center">
             <BookOpen className="h-16 w-16 text-primary mx-auto mb-8" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-balance">Đặt vấn đề</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-balance">Vấn đề</h2>
             <div
               className="text-xl md:text-2xl leading-relaxed cursor-pointer p-8 rounded-lg bg-card/60 hover:bg-card/80 transition-all duration-300 border border-border backdrop-blur-sm"
               onClick={() => openModal("problem-detail")}
