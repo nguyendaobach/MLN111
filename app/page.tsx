@@ -5,6 +5,7 @@ import { ChevronDown, X, BookOpen, Users, Brain, MessageCircle, Zap, Target, Glo
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ThemeToggle } from "@/components/theme-toggle"
+import Chatbox from "@/components/chatbox"
 
 export default function MarxistTheoryScroll() {
   const [activeSection, setActiveSection] = useState(0)
@@ -188,7 +189,24 @@ export default function MarxistTheoryScroll() {
         <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-secondary/20"></div>
         <div className="container mx-auto px-6 text-center relative z-10">
           <div className="section-fade-in">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 gradient-text floating-animation text-balance">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl mb-6" 
+              style={{
+                fontFamily: "Montserrat, system-ui, -apple-system, sans-serif",
+                fontWeight: 900,
+                letterSpacing: "0",
+                color: "#fb6f5b", 
+                textRendering: "optimizeSpeed",
+                WebkitFontSmoothing: "subpixel-antialiased",
+                MozOsxFontSmoothing: "auto",
+                textShadow: "none",
+                display: "block",
+                transform: "none",
+                fontSize: "clamp(3rem, 8vw, 7rem)",
+                lineHeight: 1.1,
+                textAlign: "center",
+                margin: "0 auto 1.5rem auto",
+                position: "relative"
+              }}>
               Xã hội không bao giờ đứng yên
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-4xl mx-auto text-balance">
@@ -234,30 +252,30 @@ export default function MarxistTheoryScroll() {
       <section className="min-h-screen flex items-center justify-center">
         <div className="container mx-auto px-6">
           <div className="section-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">Yêu cầu</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">Nội dung trọng tâm </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {[
                 {
                   icon: <Brain className="h-8 w-8" />,
                   title: "Trình bày lý thuyết",
                   content:
-                    "Học thuyết hình thái kinh tế – xã hội, các khái niệm cơ bản về lực lượng sản xuất, quan hệ sản xuất và kiến trúc thượng tầng",
+                    "Khám phá học thuyết hình thái kinh tế – xã hội, cùng các khái niệm cơ bản về lực lượng sản xuất, quan hệ sản xuất và kiến trúc thượng tầng.",
                 },
                 {
                   icon: <Zap className="h-8 w-8" />,
                   title: "Vận dụng phân tích",
                   content:
-                    "Mâu thuẫn giữa lực lượng sản xuất và quan hệ sản xuất trong quá trình phát triển lịch sử xã hội",
+                    "Tìm hiểu mâu thuẫn giữa lực lượng sản xuất và quan hệ sản xuất trong tiến trình phát triển xã hội.",
                 },
                 {
                   icon: <Users className="h-8 w-8" />,
                   title: "Vai trò đấu tranh giai cấp",
-                  content: "Hiểu đấu tranh giai cấp như động lực trực tiếp của sự thay đổi và cách mạng xã hội",
+                  content: "Làm rõ đấu tranh giai cấp như một động lực trực tiếp của sự thay đổi và cách mạng xã hội.",
                 },
                 {
                   icon: <Target className="h-8 w-8" />,
                   title: "Lý giải trung tâm",
-                  content: "Từ đó lý giải vì sao xã hội luôn vận động và biến đổi, không bao giờ đứng yên",
+                  content: "Giải thích vì sao xã hội luôn vận động và biến đổi, không bao giờ đứng yên.",
                 },
               ].map((objective, index) => (
                 <Card
@@ -314,7 +332,7 @@ export default function MarxistTheoryScroll() {
                   <div className="flip-card-inner">
                     <div className="flip-card-front">
                       <h3 className="text-lg font-semibold text-balance mb-2">{concept.term}</h3>
-                      <p className="text-xs text-muted-foreground">Nhấp để xem định nghĩa</p>
+                      <p className="text-xs text-muted-foreground">Di chuột để xem chi tiết</p>
                     </div>
                     <div className="flip-card-back">
                       <p className="text-sm text-balance mb-3">{concept.definition}</p>
@@ -485,59 +503,78 @@ export default function MarxistTheoryScroll() {
         </div>
       </section>
 
-      {/* Case Studies with Horizontal Parallax Gallery */}
+        {/* Case Studies with Horizontal Parallax Gallery */}
       <section className="horizontal-parallax-section">
         <div className="horizontal-scroll-wrapper">
           <div className="parallax-img-wrapper parallax-slower">
               <img src="/ancient-communist-society-primitive-tools.jpg" alt="Cộng sản nguyên thủy" />
-
+              <div className="parallax-content-overlay">
+                <h4 >Cộng sản nguyên thủy</h4>
+                {/* <p>Giai đoạn đầu tiên trong lịch sử nhân loại. Lực lượng sản xuất thấp, công cụ đơn giản từ đá, gỗ. Không có giai cấp, không có chế độ tư hữu. Mọi người cùng lao động và hưởng thành quả chung. Xã hội bình đẳng nhưng nghèo khó.</p> */}
+              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-faster">
-
               <img src="/ancient-slavery-roman-empire-chains.jpg" alt="Chế độ chiếm hữu nô lệ" />
-
+              <div className="parallax-content-overlay">
+                <h4>Chế độ chiếm hữu nô lệ</h4>
+              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower parallax-vertical">
-
               <img src="/medieval-feudal-castle- peasants-working-fields.jpg" alt="Chế độ phong kiến" />
-
+              <div className="parallax-content-overlay">
+                <h4>Chế độ phong kiến</h4>
+              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower parallax-slower-down">
-
               <img src="/industrial-revolution-factory-workers-steam-engine.jpg" alt="Chủ nghĩa tư bản" />
-
+              <div className="parallax-content-overlay">
+                <h4>Chủ nghĩa tư bản</h4>
+              </div>
           </div>
 
           <div className="parallax-img-wrapper">
-
               <img src="/russian-revolution-1917-red-flags-workers.jpg" alt="Cách mạng Nga 1917" />
-
+              <div className="parallax-content-overlay">
+                <h4>Cách mạng Nga 1917</h4>
+              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower">
-
               <img src="/vietnam-war-independence-ho-chi-minh.jpg" alt="Cách mạng Việt Nam" />
-
+              <div className="parallax-content-overlay">
+                <h4>Cách mạng Việt Nam</h4>
+              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-faster1">
               <img src="/modern-china-socialist-construction-buildings.jpg" alt="Xây dựng CNXH Trung Quốc" />
-            
+              <div className="parallax-content-overlay">
+                <h4>Xây dựng CNXH Trung Quốc</h4>
+              </div>
           </div>
 
-                    <div className="parallax-img-wrapper">
+          <div className="parallax-img-wrapper">
               <img src="/global-climate-change-environmental-movement.jpg" alt="Biến đổi khí hậu toàn cầu" />
+              <div className="parallax-content-overlay">
+                <h4>Khủng hoảng môi trường toàn cầu</h4>
+              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower">
               <img src="/future-communist-society-equality-technology.jpg" alt="Xã hội cộng sản tương lai" />
+              <div className="parallax-content-overlay">
+                <h4>Xã hội cộng sản tương lai</h4>
+              </div>
           </div>
 
-           <div className="parallax-img-wrapper parallax-slower parallax-slower2">
+          <div className="parallax-img-wrapper parallax-slower parallax-slower2">
               <img src="/digital-economy-ai-robots-future-society.jpg" alt="Kinh tế số và AI" />
+              <div className="parallax-content-overlay">
+                <h4>Cách mạng công nghệ 4.0</h4>
+              </div>
           </div>
 
         </div>
@@ -553,7 +590,7 @@ export default function MarxistTheoryScroll() {
           <p>Từ cộng sản nguyên thủy đến xã hội tương lai</p>
         </div>
       </section>
-
+      
       <section className="min-h-screen flex items-center justify-center">
         <div className="container mx-auto px-6">
           <div className="section-fade-in">
@@ -839,10 +876,41 @@ export default function MarxistTheoryScroll() {
                 </div>
               )}
               {modalContent?.startsWith("objective-") && (
-                <div>
-                  <p className="leading-relaxed">
-                    Nội dung chi tiết về mục tiêu học tập này được trình bày đầy đủ trong các phần tiếp theo của
-                    website, bao gồm lý thuyết, phân tích mâu thuẫn, vai trò đấu tranh giai cấp và minh chứng lịch sử.
+                <div className="space-y-4">
+                  {modalContent === "objective-0" && (
+                    <>
+                      <h4 className="text-lg font-medium text-primary mb-2">Trình bày lý thuyết</h4>
+                      <p className="leading-relaxed">
+                        Khám phá sâu sắc học thuyết hình thái kinh tế – xã hội, một đóng góp quan trọng của chủ nghĩa Mác-Lênin vào việc giải thích quá trình phát triển của xã hội loài người. Phân tích chi tiết về vai trò của các khái niệm cơ bản như lực lượng sản xuất, quan hệ sản xuất và kiến trúc thượng tầng.
+                      </p>
+                    </>
+                  )}
+                  {modalContent === "objective-1" && (
+                    <>
+                      <h4 className="text-lg font-medium text-primary mb-2">Vận dụng phân tích</h4>
+                      <p className="leading-relaxed">
+                        Đi sâu vào bản chất của mâu thuẫn giữa lực lượng sản xuất và quan hệ sản xuất. Hiểu rõ cách thức mâu thuẫn này trở thành động lực thúc đẩy xã hội chuyển từ hình thái này sang hình thái khác, đồng thời phân tích những biểu hiện cụ thể của mâu thuẫn này trong mỗi giai đoạn phát triển lịch sử.
+                      </p>
+                    </>
+                  )}
+                  {modalContent === "objective-2" && (
+                    <>
+                      <h4 className="text-lg font-medium text-primary mb-2">Vai trò đấu tranh giai cấp</h4>
+                      <p className="leading-relaxed">
+                        Phân tích đấu tranh giai cấp như một biểu hiện cụ thể và là động lực trực tiếp của sự thay đổi xã hội. Làm rõ mối quan hệ giữa đấu tranh giai cấp với mâu thuẫn giữa lực lượng sản xuất và quan hệ sản xuất, cũng như vai trò của đấu tranh giai cấp trong việc thúc đẩy các cuộc cách mạng xã hội.
+                      </p>
+                    </>
+                  )}
+                  {modalContent === "objective-3" && (
+                    <>
+                      <h4 className="text-lg font-medium text-primary mb-2">Lý giải trung tâm</h4>
+                      <p className="leading-relaxed">
+                        Tổng hợp phân tích từ các góc độ trên để giải thích một cách biện chứng vì sao xã hội không bao giờ đứng yên mà luôn vận động và phát triển. Thông qua việc phân tích các quy luật khách quan của sự phát triển xã hội, người học sẽ hiểu được bản chất của sự vận động không ngừng này.
+                      </p>
+                    </>
+                  )}
+                  <p className="text-sm text-muted-foreground mt-6">
+                    Nội dung được trình bày chi tiết trong các phần tiếp theo của trang web, với những phân tích lý thuyết, minh chứng lịch sử và ứng dụng trong thực tiễn đương đại.
                   </p>
                 </div>
               )}
@@ -850,6 +918,9 @@ export default function MarxistTheoryScroll() {
           </div>
         </div>
       )}
+
+      {/* Chatbox Component */}
+      <Chatbox />
     </div>
   )
 }

@@ -3,6 +3,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Global text rendering optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+}
+
 /* Chatbox specific styles */
 @keyframes bounce {
   0%, 80%, 100% {
@@ -246,7 +258,7 @@ body {
   }
 }
 
-/* Revolutionary gradient text with academic sophistication */
+/* Revolutionary gradient text with academic sophistication - optimized for sharp rendering */
 .gradient-text {
   background: linear-gradient(135deg, var(--color-primary), var(--color-accent), var(--color-primary));
   background-size: 200% 200%;
@@ -254,6 +266,21 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradientShift 4s ease-in-out infinite;
+  
+  /* Sharp text rendering optimizations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  
+  /* Hardware acceleration for crisp rendering */
+  transform: translate3d(0, 0, 0);
+  will-change: background-position;
+  backface-visibility: hidden;
+  
+  /* Prevent text bleeding on high-DPI displays */
+  -webkit-text-stroke: 0.5px transparent;
 }
 
 @keyframes gradientShift {
@@ -338,10 +365,12 @@ body {
   transform-origin: 50% 50%;
   transform: rotate(90deg) translateZ(0.1px) scale(0.9) translateX(0px) translateY(-3vh);
   transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
 .parallax-img-wrapper:hover {
   min-height: 70vh;
+  z-index: 10;
 }
 
 .parallax-slower {
@@ -394,6 +423,8 @@ body {
 .parallax-img-wrapper a:hover {
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
   transform: scale(1.05);
+  background: var(--color-background);
+  border-color: var(--color-primary);
 }
 
 .parallax-img-wrapper img {
@@ -401,12 +432,109 @@ body {
   max-height: 55vh;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   vertical-align: top;
-  filter: saturate(75%) sepia(15%) hue-rotate(200deg) brightness(0.85);
+  /* Giảm filter để màu sắc tự nhiên hơn */
+  filter: saturate(90%) brightness(0.95) contrast(1.05);
   border-radius: calc(var(--radius) - 6px);
+  object-fit: cover;
 }
 
 .parallax-img-wrapper a:hover img {
-  filter: saturate(100%) brightness(1);
+  /* Màu sắc hoàn toàn tự nhiên khi hover */
+  filter: saturate(110%) brightness(1.05) contrast(1.1);
+  transform: scale(1.02);
+}
+
+.parallax-img-wrapper:hover img {
+  /* Đảm bảo màu sắc chuẩn khi hover vào wrapper */
+  filter: saturate(110%) brightness(1.05) contrast(1.1) !important;
+}
+
+/* Content overlay styles for historical period descriptions */
+.parallax-content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 30%,
+    rgba(0, 0, 0, 0.8) 70%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  color: white;
+  padding: 2rem 1.5rem 1.5rem;
+  transform: translateY(100%);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0 0 calc(var(--radius) - 6px) calc(var(--radius) - 6px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.parallax-img-wrapper:hover .parallax-content-overlay {
+  transform: translateY(0);
+}
+
+.parallax-content-overlay h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #fbbf24;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.025em;
+}
+
+.parallax-content-overlay p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #f3f4f6;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+  opacity: 0.95;
+}
+
+/* Responsive adjustments for content overlays */
+@media (max-width: 768px) {
+  .parallax-content-overlay {
+    padding: 1.5rem 1rem 1rem;
+    transform: translateY(50%);
+  }
+  
+  .parallax-img-wrapper:hover .parallax-content-overlay {
+    transform: translateY(0);
+  }
+  
+  .parallax-content-overlay h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .parallax-content-overlay p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}
+
+/* Enhanced positioning for parallax wrapper to accommodate overlays */
+.parallax-img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Color profile optimizations for accurate color rendering */
+.parallax-img-wrapper img {
+  /* Đảm bảo color profile chính xác */
+  color-interpolation-filters: sRGB;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .parallax-img-wrapper img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
 }
 
 .parallax-header {
@@ -714,4 +842,47 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Container cho ảnh */
+.img-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ảnh không có hiệu ứng */
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+/* Caption đơn giản bên dưới ảnh */
+.img-caption {
+  background: #f8f8f8;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  border-top: 1px solid #eaeaea;
+}
+
+/* Style cho tiêu đề caption */
+.img-caption h4 {
+  color: #333;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Style cho đoạn văn caption */
+.img-caption p {
+  color: #666;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  margin: 0.1rem 0 0;
 }

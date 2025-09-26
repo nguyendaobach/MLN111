@@ -123,3 +123,52 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Sharp text rendering và gradient text optimization */
+.gradient-text {
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)) 0%, 
+    hsl(var(--accent)) 50%, 
+    hsl(var(--primary)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* Optimizations for sharp rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  
+  /* Prevent text bleeding and improve clarity */
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  
+  /* Force hardware acceleration for better rendering */
+  transform: translate3d(0, 0, 0);
+}
+
+/* Additional sharp text classes */
+.text-sharp {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+}
+
+/* Floating animation optimization */
+.floating-animation {
+  animation: float 6s ease-in-out infinite;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translate3d(0, 0px, 0); 
+  }
+  50% { 
+    transform: translate3d(0, -10px, 0); 
+  }
+}

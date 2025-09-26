@@ -34,6 +34,8 @@ const Chatbox = () => {
   const [isThinking, setIsThinking] = useState(false);
   const [fileData, setFileData] = useState<FileData>({ data: null, mime_type: null });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [kbDocuments, setKbDocuments] = useState<any[]>([]);
+  const [kbStats, setKbStats] = useState({ totalDocuments: 0 });
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -72,6 +74,11 @@ const Chatbox = () => {
         await loadScript('/service/knowledge-base.js', 'knowledge-base-script');
         await loadScript('/service/kb-ui.js', 'kb-ui-script');
         console.log('Knowledge base scripts loaded successfully');
+        
+        // Initialize KB data after scripts are loaded
+        setTimeout(() => {
+          loadKnowledgeBaseData();
+        }, 500);
       } catch (error) {
         console.error('Error loading knowledge base scripts:', error);
       }
@@ -79,6 +86,81 @@ const Chatbox = () => {
 
     loadScripts();
   }, []);
+
+  // Load Knowledge Base data for display
+  const loadKnowledgeBaseData = () => {
+    if (typeof window === 'undefined') return;
+    
+    try {
+      const knowledgeBase = (window as any).knowledgeBase;
+      if (knowledgeBase) {
+        const docs = knowledgeBase.getAllDocuments();
+        const stats = knowledgeBase.getStats();
+        setKbDocuments(docs);
+        setKbStats(stats);
+        
+        // Update the documents list in the UI
+        updateKbDocumentsList(docs);
+        updateKbStats(stats);
+      }
+    } catch (error) {
+      console.error('Error loading knowledge base data:', error);
+    }
+  };
+
+  // Update KB documents list in the UI
+  const updateKbDocumentsList = (documents: any[]) => {
+    const container = document.getElementById('kb-documents-list');
+    if (!container) return;
+
+    if (documents.length === 0) {
+      container.innerHTML = `
+        <div class="text-center text-gray-500 text-sm py-4">
+          Chưa có document nào trong knowledge base
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = documents.map(doc => `
+      <div class="p-3 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+        <div class="flex items-start justify-between">
+          <div class="flex-1 min-w-0">
+            <h5 class="font-medium text-sm text-gray-900 truncate">${doc.title}</h5>
+            <span class="inline-block px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded mt-1">
+              ${doc.category}
+            </span>
+            <p class="text-xs text-gray-600 mt-1 line-clamp-2">${doc.content.substring(0, 100)}${doc.content.length > 100 ? '...' : ''}</p>
+          </div>
+          <div class="flex space-x-1 ml-2">
+            <button onclick="editKbDocument('${doc.id}')" class="text-blue-600 hover:text-blue-800 text-xs p-1 rounded">
+              ✏️
+            </button>
+            <button onclick="deleteKbDocument('${doc.id}')" class="text-red-600 hover:text-red-800 text-xs p-1 rounded">
+              🗑️
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  };
+
+  // Update KB stats
+  const updateKbStats = (stats: any) => {
+    const statsElement = document.getElementById('kb-stats');
+    if (statsElement) {
+      statsElement.textContent = `${stats.totalDocuments} documents`;
+    }
+  };
+
+  // Refresh KB data when settings panel opens
+  useEffect(() => {
+    if (isSettingsOpen) {
+      setTimeout(() => {
+        loadKnowledgeBaseData();
+      }, 100);
+    }
+  }, [isSettingsOpen]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() && !selectedFile) return;
@@ -224,6 +306,27 @@ const Chatbox = () => {
     </div>
   );
 
+  // Add global functions for KB management
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      (window as any).editKbDocument = (docId: string) => {
+        if ((window as any).settingsUI) {
+          (window as any).settingsUI.editDocument(docId);
+        }
+      };
+      
+      (window as any).deleteKbDocument = (docId: string) => {
+        if ((window as any).settingsUI) {
+          (window as any).settingsUI.deleteDocument(docId);
+          // Refresh the list after deletion
+          setTimeout(() => {
+            loadKnowledgeBaseData();
+          }, 100);
+        }
+      };
+    }
+  }, []);
+
   return (
     <>
       {/* Chatbot Toggle Button */}
@@ -276,7 +379,7 @@ const Chatbox = () => {
             </div>
           </div>
 
-          {/* Settings Panel */}
+          {/* Enhanced Settings Panel */}
           {isSettingsOpen && (
             <Card className="absolute top-16 left-0 right-0 bg-white z-10 max-h-80 overflow-y-auto">
               <CardHeader>
@@ -295,49 +398,148 @@ const Chatbox = () => {
                     <TabsTrigger value="knowledge">Knowledge Base</TabsTrigger>
                     <TabsTrigger value="preferences">Tùy chọn</TabsTrigger>
                   </TabsList>
+                  
+                  {/* Knowledge Base Tab */}
                   <TabsContent value="knowledge" className="space-y-4">
                     <div className="flex space-x-2">
                       <input
+                        id="kb-search-input"
                         type="text"
                         placeholder="Tìm kiếm trong knowledge base..."
-                        className="flex-1 px-3 py-2 border rounded-md"
+                        className="flex-1 px-3 py-2 border rounded-md text-sm"
                       />
-                      <Button size="sm">
+                      <Button 
+                        size="sm"
+                        onClick={() => {
+                          const query = (document.getElementById('kb-search-input') as HTMLInputElement)?.value || '';
+                          if (typeof window !== 'undefined' && (window as any).settingsUI) {
+                            (window as any).settingsUI.loadKnowledgeBase(query);
+                          }
+                        }}
+                      >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                       </Button>
                     </div>
+
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Knowledge base loaded</span>
-                      <Button size="sm">+ Thêm</Button>
+                      <div className="flex items-center space-x-2">
+                        <input 
+                          type="checkbox" 
+                          id="enable-kb-checkbox"
+                          defaultChecked 
+                          className="rounded"
+                        />
+                        <label htmlFor="enable-kb-checkbox" className="text-sm">Bật Knowledge Base injection</label>
+                      </div>
+                      <span id="kb-stats" className="text-sm text-gray-600">8 documents</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Max documents:</span>
+                      <select id="max-docs-select" className="px-2 py-1 border rounded text-sm" defaultValue="3">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+
+                    <div className="flex space-x-2">
+                      <Button 
+                        size="sm" 
+                        className="flex-1 bg-green-600 hover:bg-green-700"
+                        onClick={() => {
+                          if (typeof window !== 'undefined' && (window as any).settingsUI) {
+                            (window as any).settingsUI.showAddDocumentForm();
+                          }
+                        }}
+                      >
+                        + Thêm
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => {
+                          if (typeof window !== 'undefined' && (window as any).settingsUI) {
+                            (window as any).settingsUI.exportKB();
+                          }
+                        }}
+                      >
+                        📤 Export
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => {
+                          if (typeof window !== 'undefined' && (window as any).settingsUI) {
+                            (window as any).settingsUI.importKB();
+                          }
+                        }}
+                      >
+                        📥 Import
+                      </Button>
+                    </div>
+
+                    {/* Knowledge Base Documents List */}
+                    <div id="kb-documents-list" className="max-h-40 overflow-y-auto space-y-2">
+                      <div className="text-center text-gray-500 text-sm py-4">
+                        Đang tải knowledge base...
+                      </div>
+                    </div>
+
+                    {/* Hidden file input for import */}
+                    <input
+                      type="file"
+                      id="kb-import-file"
+                      accept=".json"
+                      className="hidden"
+                      onChange={(e) => {
+                        if (typeof window !== 'undefined' && (window as any).settingsUI) {
+                          (window as any).settingsUI.handleImportFile(e);
+                        }
+                      }}
+                    />
+
+                    <div className="border-t pt-3">
+                      <Button 
+                        size="sm" 
+                        variant="destructive"
+                        className="w-full"
+                        onClick={() => {
+                          if (typeof window !== 'undefined' && (window as any).settingsUI) {
+                            (window as any).settingsUI.clearKB();
+                          }
+                        }}
+                      >
+                        🗑️ Xóa tất cả dữ liệu
+                      </Button>
                     </div>
                   </TabsContent>
+
+                  {/* Preferences Tab */}
                   <TabsContent value="preferences" className="space-y-4">
                     <div className="space-y-3">
                       <h4 className="font-semibold">Hiển thị</h4>
                       <label className="flex items-center space-x-2">
-                        <input type="checkbox" />
-                        <span>Hiển thị typing indicator</span>
+                        <input type="checkbox" className="rounded" />
+                        <span className="text-sm">Hiển thị typing indicator</span>
                       </label>
                       <label className="flex items-center space-x-2">
-                        <input type="checkbox" defaultChecked />
-                        <span>Tự động cuộn xuống</span>
+                        <input type="checkbox" defaultChecked className="rounded" />
+                        <span className="text-sm">Tự động cuộn xuống</span>
                       </label>
                     </div>
+                    
                     <div className="space-y-3">
-                      <h4 className="font-semibold">Knowledge Base</h4>
+                      <h4 className="font-semibold">Cài đặt nâng cao</h4>
                       <label className="flex items-center space-x-2">
-                        <input type="checkbox" defaultChecked />
-                        <span>Bật Knowledge Base injection</span>
+                        <input type="checkbox" defaultChecked className="rounded" />
+                        <span className="text-sm">Lưu lịch sử chat</span>
                       </label>
                       <label className="flex items-center space-x-2">
-                        <span>Max documents:</span>
-                        <select className="px-2 py-1 border rounded">
-                          <option value="2">2</option>
-                          <option value="3" selected>3</option>
-                          <option value="5">5</option>
-                        </select>
+                        <input type="checkbox" className="rounded" />
+                        <span className="text-sm">Chế độ debug</span>
                       </label>
                     </div>
                   </TabsContent>
