@@ -508,73 +508,42 @@ export default function MarxistTheoryScroll() {
         <div className="horizontal-scroll-wrapper">
           <div className="parallax-img-wrapper parallax-slower">
               <img src="/ancient-communist-society-primitive-tools.jpg" alt="Cộng sản nguyên thủy" />
-              <div className="parallax-content-overlay">
-                <h4 >Cộng sản nguyên thủy</h4>
-                {/* <p>Giai đoạn đầu tiên trong lịch sử nhân loại. Lực lượng sản xuất thấp, công cụ đơn giản từ đá, gỗ. Không có giai cấp, không có chế độ tư hữu. Mọi người cùng lao động và hưởng thành quả chung. Xã hội bình đẳng nhưng nghèo khó.</p> */}
-              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-faster">
               <img src="/ancient-slavery-roman-empire-chains.jpg" alt="Chế độ chiếm hữu nô lệ" />
-              <div className="parallax-content-overlay">
-                <h4>Chế độ chiếm hữu nô lệ</h4>
-              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower parallax-vertical">
               <img src="/medieval-feudal-castle- peasants-working-fields.jpg" alt="Chế độ phong kiến" />
-              <div className="parallax-content-overlay">
-                <h4>Chế độ phong kiến</h4>
-              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower parallax-slower-down">
               <img src="/industrial-revolution-factory-workers-steam-engine.jpg" alt="Chủ nghĩa tư bản" />
-              <div className="parallax-content-overlay">
-                <h4>Chủ nghĩa tư bản</h4>
-              </div>
           </div>
 
           <div className="parallax-img-wrapper">
               <img src="/russian-revolution-1917-red-flags-workers.jpg" alt="Cách mạng Nga 1917" />
-              <div className="parallax-content-overlay">
-                <h4>Cách mạng Nga 1917</h4>
-              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower">
               <img src="/vietnam-war-independence-ho-chi-minh.jpg" alt="Cách mạng Việt Nam" />
-              <div className="parallax-content-overlay">
-                <h4>Cách mạng Việt Nam</h4>
-              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-faster1">
               <img src="/modern-china-socialist-construction-buildings.jpg" alt="Xây dựng CNXH Trung Quốc" />
-              <div className="parallax-content-overlay">
-                <h4>Xây dựng CNXH Trung Quốc</h4>
-              </div>
           </div>
 
           <div className="parallax-img-wrapper">
               <img src="/global-climate-change-environmental-movement.jpg" alt="Biến đổi khí hậu toàn cầu" />
-              <div className="parallax-content-overlay">
-                <h4>Khủng hoảng môi trường toàn cầu</h4>
-              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower">
               <img src="/future-communist-society-equality-technology.jpg" alt="Xã hội cộng sản tương lai" />
-              <div className="parallax-content-overlay">
-                <h4>Xã hội cộng sản tương lai</h4>
-              </div>
           </div>
 
           <div className="parallax-img-wrapper parallax-slower parallax-slower2">
               <img src="/digital-economy-ai-robots-future-society.jpg" alt="Kinh tế số và AI" />
-              <div className="parallax-content-overlay">
-                <h4>Cách mạng công nghệ 4.0</h4>
-              </div>
           </div>
 
         </div>
